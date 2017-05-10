@@ -32,21 +32,15 @@ public:
 	void LapTimeCheck();
 	void RaceTimeCheck();
 	
-	//void UpdateGoals();
 
-
-	void StartGameSetup();
 	//Restart Game when the race is complete
 	void Restart();
 	void UpdateLap();
 	UFUNCTION()
 	void RespawnVehicle(AActor *ActorDestroyed);
-	UFUNCTION(BlueprintCallable)
-	void StartRaceTime();
-	void StopRaceTime();
-	UFUNCTION(BlueprintCallable)
-	void StartLapTime();
-	void StopLapTIme();
+
+
+
 
 
 
@@ -80,6 +74,9 @@ public:
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+
+private:
+	bool OnlyOnce;
 
 
 };

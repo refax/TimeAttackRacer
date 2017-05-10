@@ -88,7 +88,7 @@ void AMyPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	
+	OnlyOnce = true;
 	//UUserWidget *HUD = //Cast<UUserWidget>(HUDReference->class);
 	//UUserWidget *HUD = HUDReference->GetDefaultObject<UUserWidget>();
 	UUserWidget *HUD = CreateWidget<UUserWidget>(this, HUDReference);
@@ -108,17 +108,6 @@ void AMyPlayerController::BeginPlay()
 	
 }
 
-
-//Private
-
-//Start Game Sequence
-void AMyPlayerController::StartGameSetup()
-{
-	//SaveGameCheck();
-
-	/*InitText();*/
-	
-}
 
 //Restart Game when the race is complete
 void AMyPlayerController::Restart() 
@@ -152,48 +141,12 @@ void AMyPlayerController::RespawnVehicle(AActor *ActorDestroyed)
 	Actor->OnDestroyed.AddDynamic(this, &AMyPlayerController::RespawnVehicle);
 }
 
-void AMyPlayerController::StartRaceTime()
-{
-	//RaceTimerEnabled = true;
-	//ActualRaceTime = 0.0f;
-}
 
-void AMyPlayerController::StopRaceTime()
-{
-	//RaceTimerEnabled = false;
-}
-
-void AMyPlayerController::StartLapTime()
-{
-	//LapTimerEnabled = true;
-
-}
-
-void AMyPlayerController::StopLapTIme()
-{
-	//LapTimerEnabled = false;
-}
 
 void AMyPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	
-	//Update race timer
-	/*
-	if (RaceTimerEnabled)
-	{
-		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT(""+UtilityFunction::TimeToText(ActualRaceTime)));
-		ActualRaceTime += DeltaTime;
-		RaceTimeText = FText::FromString(UtilityFunction::TimeToText(ActualRaceTime));
-		//UpdateGoals();
-	}
-
-	//Update lap timer
-	if (LapTimerEnabled)
-	{
-		ActualLapTime += DeltaTime;
-	}*/
-
 }
 
 
@@ -207,8 +160,6 @@ void AMyPlayerController::SetupInputComponent()
 
 void AMyPlayerController::PlayerStartGameRequest()
 {
-	static bool OnlyOnce = true;
-
 	if (OnlyOnce)
 	{
 		PlayerHasStartedTheGame.Broadcast();

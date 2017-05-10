@@ -74,13 +74,13 @@ void ATracker::PostEditChangeProperty(FPropertyChangedEvent & PropertyChangedEve
 //private functions
 void ATracker::UpdateTimes()
 {
-	if (ControllerReference)
+	if (GameState)
 	{
-	/*	ControllerReference->GoldTime = GoldTime;
-		ControllerReference->SilverTIme = SilverTime;
-		ControllerReference->BronzeTime = BronzeTime;
-		ControllerReference->DefaultBestLapTime = DefaultBestLap;
-		ControllerReference->DefaultBestRaceTime = DefaultBestTime;*/
+		GameState->GoldTime = GoldTime;
+		GameState->SilverTIme = SilverTime;
+		GameState->BronzeTime = BronzeTime;
+		GameState->DefaultBestLapTime = DefaultBestLap;
+		GameState->DefaultBestRaceTime = DefaultBestTime;
 	}
 }
 
@@ -137,13 +137,13 @@ bool ATracker::RaceCompleteCheck()
 //Custom Events
 void ATracker::ApplySettings()
 {
-	if (ControllerReference)
+	if (GameState)
 	{
-		//ControllerReference->MaxLaps = MaxLaps;
+		GameState->MaxLaps = MaxLaps;
 
 		UpdateTimes();
 
-		ControllerReference->StartGameSetup();
+		GameState->InitText();
 	}
 }
 

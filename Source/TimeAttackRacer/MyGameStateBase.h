@@ -65,6 +65,16 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
 	bool RaceStart;
 
+
+	UFUNCTION(BlueprintCallable)
+		void StartRaceTime();
+	UFUNCTION(BlueprintCallable)
+		void StopRaceTime();
+	UFUNCTION(BlueprintCallable)
+		void StartLapTime();
+	UFUNCTION(BlueprintCallable)
+		void StopLapTIme();
+
 private:
 	bool RaceTimerEnabled;
 	bool LapTimerEnabled;

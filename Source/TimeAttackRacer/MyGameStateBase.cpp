@@ -60,3 +60,25 @@ void AMyGameStateBase::Tick(float DeltaTime)
 	}
 
 }
+
+void AMyGameStateBase::StartRaceTime()
+{
+	RaceTimerEnabled = true;
+	ActualRaceTime = 0.0f;
+}
+
+void AMyGameStateBase::StopRaceTime()
+{
+	RaceTimerEnabled = false;
+}
+
+void AMyGameStateBase::StartLapTime()
+{
+	LapTimerEnabled = true;
+
+}
+
+void AMyGameStateBase::StopLapTIme()
+{
+	LapTimerEnabled = false;
+}
