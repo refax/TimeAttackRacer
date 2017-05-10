@@ -255,10 +255,12 @@ void ATimeAttackRacerPawn::Tick(float Delta)
 
 	if (PlayerControllerReference)
 	{
+		/*
 		if (PlayerControllerReference->RaceStart)
 		{
 			EnableInput(PlayerControllerReference);
 		}
+		*/
 	}
 
 	// Setup the flag to say we are in reverse gear
@@ -346,7 +348,7 @@ void ATimeAttackRacerPawn::BeginPlay()
 		if (PlayerControllerReference)
 		{
 			PlayerControllerReference->RespawnLocation = GetActorTransform();
-			DisableInput(PlayerControllerReference);
+			//DisableInput(PlayerControllerReference);
 		}
 	}
 

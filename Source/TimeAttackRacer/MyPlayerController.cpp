@@ -16,37 +16,17 @@ AMyPlayerController::AMyPlayerController()
 	PrimaryActorTick.bCanEverTick = true;
 	HUD = nullptr;
 	VehicleReference = nullptr;
-
-
-	ActualLap = 1;
-	MaxLaps = 3;
-
-	RaceTimerEnabled = false;
-	LapTimerEnabled = false;
-	ActualLapTime = 0.0f;
-	ActualRaceTime = 0.0f;
-
 }
 
-void AMyPlayerController::InitText()
-{
-	CurrentLapText = FText::FromString(FString::FromInt(ActualLap));
-	MaxLapsText = FText::FromString(FString::FromInt(MaxLaps));
 
-	GoldTimeText = FText::FromString(UtilityFunction::TimeToText(GoldTime));
-	SilverTimeText = FText::FromString(UtilityFunction::TimeToText(SilverTIme));
-	BronzeTimeText = FText::FromString(UtilityFunction::TimeToText(BronzeTime));
-	
-	BestLapText = FText::FromString(UtilityFunction::TimeToText(BestLapTime));
-	BestTimeText = FText::FromString(UtilityFunction::TimeToText(BestRaceTime));
-}
-
+/*
 void AMyPlayerController::SaveGameCheck()
 {
 	BestRaceTime = DefaultBestRaceTime;
 	BestLapTime = DefaultBestLapTime;
 }
-
+*/
+/*
 void AMyPlayerController::SaveTheGame()
 {
 
@@ -56,10 +36,12 @@ void AMyPlayerController::LoadTheGame()
 {
 
 }
+*/
 
 //Lap time check-Check if we have a new lap record
 void AMyPlayerController::LapTimeCheck()
 {
+	/*
 	StopLapTIme();
 
 	if (ActualLapTime < BestLapTime)
@@ -79,24 +61,28 @@ void AMyPlayerController::LapTimeCheck()
 	{
 		StartLapTime();
 	}
+	*/
 }
 
 //RaceTimeCheck- Save the best race time if we have a new record
 void AMyPlayerController::RaceTimeCheck()
 {
+	/**
 	if (ActualRaceTime <= BestRaceTime)
 	{
 		BestRaceTime = ActualRaceTime;
 		BestTimeText = FText::FromString(UtilityFunction::TimeToText(BestRaceTime));
 		SaveTheGame();
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("" + UtilityFunction::TimeToText(BestRaceTime)));
-	}
+	}*/
 }
 
+/*
 void AMyPlayerController::UpdateGoals()
 {
 
 }
+*/
 
 void AMyPlayerController::BeginPlay()
 {
@@ -128,24 +114,27 @@ void AMyPlayerController::BeginPlay()
 //Start Game Sequence
 void AMyPlayerController::StartGameSetup()
 {
-	SaveGameCheck();
-	InitText();
+	//SaveGameCheck();
+
+	/*InitText();*/
 	
 }
 
 //Restart Game when the race is complete
 void AMyPlayerController::Restart() 
 {
+	/*
 	RaceStart = false;
 
 	//Delay???
 
 	RestartLevel();
-
+	*/
 }
 
 void AMyPlayerController::UpdateLap()
 {
+	/*
 	if (!RaceComplete)
 	{
 		ActualLap++;
@@ -153,6 +142,7 @@ void AMyPlayerController::UpdateLap()
 	}
 	LapTimeCheck();
 	UKismetSystemLibrary::PrintText(this, CurrentLapText);
+	*/
 }
 
 void AMyPlayerController::RespawnVehicle(AActor *ActorDestroyed)
@@ -164,24 +154,24 @@ void AMyPlayerController::RespawnVehicle(AActor *ActorDestroyed)
 
 void AMyPlayerController::StartRaceTime()
 {
-	RaceTimerEnabled = true;
+	//RaceTimerEnabled = true;
 	//ActualRaceTime = 0.0f;
 }
 
 void AMyPlayerController::StopRaceTime()
 {
-	RaceTimerEnabled = false;
+	//RaceTimerEnabled = false;
 }
 
 void AMyPlayerController::StartLapTime()
 {
-	LapTimerEnabled = true;
+	//LapTimerEnabled = true;
 
 }
 
 void AMyPlayerController::StopLapTIme()
 {
-	LapTimerEnabled = false;
+	//LapTimerEnabled = false;
 }
 
 void AMyPlayerController::Tick(float DeltaTime)
@@ -189,19 +179,20 @@ void AMyPlayerController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	
 	//Update race timer
+	/*
 	if (RaceTimerEnabled)
 	{
 		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT(""+UtilityFunction::TimeToText(ActualRaceTime)));
 		ActualRaceTime += DeltaTime;
 		RaceTimeText = FText::FromString(UtilityFunction::TimeToText(ActualRaceTime));
-		UpdateGoals();
+		//UpdateGoals();
 	}
 
 	//Update lap timer
 	if (LapTimerEnabled)
 	{
 		ActualLapTime += DeltaTime;
-	}
+	}*/
 
 }
 
@@ -209,15 +200,23 @@ void AMyPlayerController::Tick(float DeltaTime)
 void AMyPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
+
+	InputComponent->BindAction("LeftMouse", IE_Pressed, this, &AMyPlayerController::PlayerStartGameRequest);
+
 }
 
-void AMyPlayerController::LeftMouseClick()
+void AMyPlayerController::PlayerStartGameRequest()
 {
-	//Do Once
-	//if (!RaceStart)
-	//{
+	static bool OnlyOnce = true;
 
-	//}
+	if (OnlyOnce)
+	{
+		PlayerHasStartedTheGame.Broadcast();
+		OnlyOnce = false;
+	}
 }
+
+
+
 
 

@@ -27,6 +27,18 @@ void AMyGameStateBase::BeginPlay()
 
 }
 
+void AMyGameStateBase::InitText()
+{
+	CurrentLapText = FText::FromString(FString::FromInt(ActualLap));
+	MaxLapsText = FText::FromString(FString::FromInt(MaxLaps));
+
+	GoldTimeText = FText::FromString(UtilityFunction::TimeToText(GoldTime));
+	SilverTimeText = FText::FromString(UtilityFunction::TimeToText(SilverTIme));
+	BronzeTimeText = FText::FromString(UtilityFunction::TimeToText(BronzeTime));
+
+	BestLapText = FText::FromString(UtilityFunction::TimeToText(BestLapTime));
+	BestTimeText = FText::FromString(UtilityFunction::TimeToText(BestRaceTime));
+}
 
 void AMyGameStateBase::Tick(float DeltaTime)
 {

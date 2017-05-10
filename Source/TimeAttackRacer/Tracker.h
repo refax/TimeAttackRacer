@@ -56,6 +56,7 @@ public:
 	int32 TotalCheckpoint;
 
 	class AMyPlayerController *ControllerReference;
+	class AMyGameStateBase *GameState;
 
 
 private:

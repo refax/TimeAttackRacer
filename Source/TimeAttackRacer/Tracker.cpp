@@ -5,6 +5,7 @@
 #include "Runtime/Engine/Classes/Components/BillboardComponent.h"
 #include "Runtime/Engine/Classes/Sound/AmbientSound.h"
 #include "MyPlayerController.h"
+#include "MyGameStateBase.h"
 #include "Checkpoint.h"
 
 #include "Runtime/Engine/Classes/Engine/Engine.h"
@@ -46,7 +47,10 @@ void ATracker::BeginPlay()
 	if (World)
 	{
 		ControllerReference = Cast<AMyPlayerController>(World->GetFirstPlayerController());
+		GameState = Cast<AMyGameStateBase>(World->GetGameState());
 	}
+
+	
 
 	ApplySettings();
 
@@ -72,11 +76,11 @@ void ATracker::UpdateTimes()
 {
 	if (ControllerReference)
 	{
-		ControllerReference->GoldTime = GoldTime;
+	/*	ControllerReference->GoldTime = GoldTime;
 		ControllerReference->SilverTIme = SilverTime;
 		ControllerReference->BronzeTime = BronzeTime;
 		ControllerReference->DefaultBestLapTime = DefaultBestLap;
-		ControllerReference->DefaultBestRaceTime = DefaultBestTime;
+		ControllerReference->DefaultBestRaceTime = DefaultBestTime;*/
 	}
 }
 
@@ -123,8 +127,8 @@ bool ATracker::RaceCompleteCheck()
 	bool IsRaceComplete = false;
 	if (ControllerReference)
 	{
-		ControllerReference->RaceComplete = (ControllerReference->ActualLap >= ControllerReference->MaxLaps);
-		IsRaceComplete = ControllerReference->RaceComplete;
+		//ControllerReference->RaceComplete = (ControllerReference->ActualLap >= ControllerReference->MaxLaps);
+		//IsRaceComplete = ControllerReference->RaceComplete;
 	}
 
 	return IsRaceComplete;
@@ -135,7 +139,7 @@ void ATracker::ApplySettings()
 {
 	if (ControllerReference)
 	{
-		ControllerReference->MaxLaps = MaxLaps;
+		//ControllerReference->MaxLaps = MaxLaps;
 
 		UpdateTimes();
 
@@ -185,10 +189,11 @@ void ATracker::OnCheckPointCleared(int32 CheckPointNumber)
 
 	if (ControllerReference)
 	{
+		/**
 		if (ControllerReference->RaceComplete)
 		{
 			ControllerReference->Restart();
-		}
+		}*/
 	}
 
 }

@@ -28,7 +28,7 @@ void ATimeAttackRacerHud::DrawHUD()
 
 	if (PlayerController)
 	{
-		if (PlayerController->RaceStart)
+//		if (PlayerController->RaceStart)
 		{
 			
 

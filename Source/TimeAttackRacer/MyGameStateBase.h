@@ -17,6 +17,8 @@ class TIMEATTACKRACER_API AMyGameStateBase : public AGameStateBase
 public:
 	AMyGameStateBase();
 
+	void InitText();
+
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Values")
 		int32 ActualLap;
@@ -58,8 +60,6 @@ public:
 		FText BestLapText;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
 		FText NameOfMap;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
-		FText ReadyText;
 
 	bool RaceComplete;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")

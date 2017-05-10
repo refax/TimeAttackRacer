@@ -10,6 +10,9 @@ class ATimeAttackRacerGameMode : public AGameModeBase
 
 public:
 	ATimeAttackRacerGameMode();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
+	FText ReadyText;
 };
 
 
