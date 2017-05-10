@@ -2,126 +2,76 @@
 
 #pragma once
 
-#include "GameFramework/PlayerController.h"
-#include "MyPlayerController.generated.h"
-
-
-
+#include "GameFramework/GameStateBase.h"
+#include "MyGameStateBase.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TIMEATTACKRACER_API AMyPlayerController : public APlayerController
+class TIMEATTACKRACER_API AMyGameStateBase : public AGameStateBase
 {
 	GENERATED_BODY()
-
-	DECLARE_DYNAMIC_DELEGATE(FRaceHasStarted);
+	
 	
 public:
-	//Constructor
-	AMyPlayerController();
-
-	void InitText();
-	void SaveGameCheck();
-	void SaveTheGame();
-	void LoadTheGame();
-	void LapTimeCheck();
-	void RaceTimeCheck();
-	void UpdateGoals();
+	AMyGameStateBase();
 
 
-	void StartGameSetup();
-	//Restart Game when the race is complete
-	void Restart();
-	void UpdateLap();
-	UFUNCTION()
-	void RespawnVehicle(AActor *ActorDestroyed);
-	UFUNCTION(BlueprintCallable)
-	void StartRaceTime();
-	void StopRaceTime();
-	UFUNCTION(BlueprintCallable)
-	void StartLapTime();
-	void StopLapTIme();
-
-	void LeftMouseClick();
-
-	// Called to bind functionality to input
-	virtual void SetupInputComponent() override;
-	//virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Values")
-	int32 ActualLap;
+		int32 ActualLap;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Values")
-	int32 MaxLaps;
+		int32 MaxLaps;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Values")
-	float ActualRaceTime;
+		float ActualRaceTime;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Values")
-	float ActualLapTime;
+		float ActualLapTime;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Values")
-	float GoldTime;
+		float GoldTime;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Values")
-	float SilverTIme;
+		float SilverTIme;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Values")
-	float BronzeTime;
+		float BronzeTime;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Values")
-	float BestRaceTime;
+		float BestRaceTime;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Values")
-	float BestLapTime;
+		float BestLapTime;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Values")
-	float DefaultBestLapTime;
+		float DefaultBestLapTime;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Values")
-	float DefaultBestRaceTime;
+		float DefaultBestRaceTime;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
-	FText RaceTimeText;
+		FText RaceTimeText;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
-	FText CurrentLapText;
+		FText CurrentLapText;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
-	FText MaxLapsText;
+		FText MaxLapsText;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
-	FText GoldTimeText;
+		FText GoldTimeText;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
-	FText SilverTimeText;
+		FText SilverTimeText;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
-	FText BronzeTimeText;
+		FText BronzeTimeText;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
-	FText BestTimeText;
+		FText BestTimeText;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
-	FText BestLapText;
+		FText BestLapText;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
-	FText NameOfMap;
+		FText NameOfMap;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
-	FText ReadyText;
+		FText ReadyText;
 
 	bool RaceComplete;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TextValues")
 	bool RaceStart;
 
-
-	FTransform RespawnLocation;
-	FString SaveSlot;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TSubclassOf<class UUserWidget> HUDReference;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UUserWidget* HUD;
-
-	class ATimeAttackRacerPawn* VehicleReference;
-
-
-
-	//Event Dispatchers
-	FRaceHasStarted RaceHasStarted;
+private:
+	bool RaceTimerEnabled;
+	bool LapTimerEnabled;
 
 
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
-
-private:
-	bool RaceTimerEnabled;
-	bool LapTimerEnabled;
-
-	
 	
 };

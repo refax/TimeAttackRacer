@@ -5,10 +5,12 @@
 #include "TimeAttackRacerPawn.h"
 #include "TimeAttackRacerHud.h"
 #include "MyPlayerController.h"
+#include "MyGameStateBase.h"
 
 ATimeAttackRacerGameMode::ATimeAttackRacerGameMode()
 {
 	DefaultPawnClass = ATimeAttackRacerPawn::StaticClass();
 	HUDClass = ATimeAttackRacerHud::StaticClass();
 	PlayerControllerClass = AMyPlayerController::StaticClass();
+	GameStateClass = AMyGameStateBase::StaticClass();
 }

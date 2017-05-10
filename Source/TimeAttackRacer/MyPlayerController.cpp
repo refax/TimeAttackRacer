@@ -17,6 +17,7 @@ AMyPlayerController::AMyPlayerController()
 	HUD = nullptr;
 	VehicleReference = nullptr;
 
+
 	ActualLap = 1;
 	MaxLaps = 3;
 
