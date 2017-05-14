@@ -32,7 +32,7 @@ ATracker::ATracker()
 
 	TotalCheckpoint = 0;
 
-	CurrentLap = 0;
+	CurrentLap = 1;
 }
 
 // Called when the game starts or when spawned
@@ -57,21 +57,6 @@ void ATracker::PostEditChangeProperty(FPropertyChangedEvent & PropertyChangedEve
 	CheckPointsList.SetNum(TotalCheckpoint);
 }
 
-//private functions
-void ATracker::UpdateTimes()
-{
-	/*
-	if (GameState)
-	{
-		GameState->GoldTime = GoldTime;
-		GameState->SilverTIme = SilverTime;
-		GameState->BronzeTime = BronzeTime;
-		GameState->DefaultBestLapTime = DefaultBestLap;
-		GameState->DefaultBestRaceTime = DefaultBestTime;
-	}
-	*/
-}
-
 //Check if Lap is finished, if no update
 void ATracker::LapCheck(int32 Checkpoint)
 {
@@ -83,16 +68,16 @@ void ATracker::LapCheck(int32 Checkpoint)
 			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("LapCompleted"));		
 			ActivateCheckpoint(CheckPointsList[0]);
 			//ControllerReference->RespawnLocation = CheckPointsList[Checkpoint - 1]->GetActorTransform();
-
-			LapIsFinished.Broadcast();
+			CurrentLap++;
+			OnLapIsFinished.Broadcast();
 		}
 		else
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("RaceCompleted"));
-			RaceIsFinished.Broadcast();
+			CurrentLap++;
+			OnRaceIsFinished.Broadcast();
 		}
 
-		CurrentLap++;
 	}
 	else
 	{
@@ -153,26 +138,8 @@ void ATracker::OnCheckPointCleared(int32 CheckPointNumber)
 		CheckpointSound->Play();
 	}
 
+	OnCheckPointClearedF.Broadcast(CheckPointNumber);
+
 	LapCheck(CheckPointNumber);
-
-/*
-	if (GameState)
-	{
-		GameState->OnCheckPointCleared(CheckPointNumber);
-	}
-	*/
-	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("ActorEndOverlap!2"));
-	
-
-
-
-	//if (ControllerReference)
-	{
-		/**
-		if (ControllerReference->RaceComplete)
-		{
-			ControllerReference->Restart();
-		}*/
-	}
 
 }

@@ -44,18 +44,6 @@ void AMyPlayerController::BeginPlay()
 }
 
 
-//Restart Game when the race is complete
-void AMyPlayerController::Restart() 
-{
-	/*
-	RaceStart = false;
-
-	//Delay???
-
-	RestartLevel();
-	*/
-}
-
 
 
 void AMyPlayerController::RespawnVehicle(AActor *ActorDestroyed)

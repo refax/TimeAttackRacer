@@ -13,6 +13,8 @@ UCLASS()
 class TIMEATTACKRACER_API AMyGameStateBase : public AGameStateBase
 {
 	GENERATED_BODY()
+
+		DECLARE_DYNAMIC_MULTICAST_DELEGATE(FRaceFinished);
 	
 	
 public:
@@ -88,6 +90,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void RaceTimeCheck();
 
+	
+	UPROPERTY(BlueprintAssignable)
+	FRaceFinished OnRaceFinished;
+
+
+	void RaceIsFinished();
 
 private:
 	bool RaceTimerEnabled;

@@ -24,9 +24,6 @@ class TIMEATTACKRACER_API AMyPlayerController : public APlayerController
 public:
 	//Constructor
 	AMyPlayerController();
-
-	//Restart Game when the race is complete
-	void Restart();
 	
 	UFUNCTION()
 	void RespawnVehicle(AActor *ActorDestroyed);

@@ -44,6 +44,9 @@ void AMyGameStateBase::InitText()
 		DefaultBestRaceTime = TrackerManager->DefaultBestTime;
 		MaxLaps = TrackerManager->MaxLaps;
 
+		TrackerManager->OnLapIsFinished.AddDynamic(this, &AMyGameStateBase::UpdateLap);
+		TrackerManager->OnRaceIsFinished.AddDynamic(this, &AMyGameStateBase::RaceIsFinished);
+
 	}
 
 	CurrentLapText = FText::FromString(FString::FromInt(ActualLap));
@@ -64,10 +67,8 @@ void AMyGameStateBase::Tick(float DeltaTime)
 	//Update race timer
 	if (RaceTimerEnabled)
 	{
-		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT(""+UtilityFunction::TimeToText(ActualRaceTime)));
 		ActualRaceTime += DeltaTime;
 		RaceTimeText = FText::FromString(UtilityFunction::TimeToText(ActualRaceTime));
-		//UpdateGoals();
 	}
 
 	//Update lap timer
@@ -103,7 +104,11 @@ void AMyGameStateBase::StopLapTIme()
 void AMyGameStateBase::UpdateLap()
 {
 	
-	ActualLap++;
+	if (TrackerManager)
+	{
+		ActualLap++;
+	}
+
 	CurrentLapText = FText::FromString(FString::FromInt(ActualLap));
 	//}
 	LapTimeCheck();
@@ -114,38 +119,47 @@ void AMyGameStateBase::UpdateLap()
 //Lap time check-Check if we have a new lap record
 void AMyGameStateBase::LapTimeCheck()
 {
-	/*
+	
 	StopLapTIme();
 
 	if (ActualLapTime < BestLapTime)
 	{
 	BestLapTime = ActualLapTime;
 	BestLapText = FText::FromString(UtilityFunction::TimeToText(BestLapTime));
-	SaveTheGame();
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT(""+UtilityFunction::TimeToText(BestLapTime)));
+	
 	}
 
 	ActualLapTime = 0.0f;
-
+	/*
 	if (RaceComplete)
 	{
 	RaceTimeCheck();
 	}
 	{
+	
+	}*/
+
 	StartLapTime();
-	}
-	*/
+	
 }
 
 //RaceTimeCheck- Save the best race time if we have a new record
 void AMyGameStateBase::RaceTimeCheck()
 {
-	/**
+	
 	if (ActualRaceTime <= BestRaceTime)
 	{
 	BestRaceTime = ActualRaceTime;
 	BestTimeText = FText::FromString(UtilityFunction::TimeToText(BestRaceTime));
-	SaveTheGame();
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("" + UtilityFunction::TimeToText(BestRaceTime)));
-	}*/
+	
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("" + UtilityFunction::TimeToText(BestRaceTime)));
+	}
+}
+
+
+void AMyGameStateBase::RaceIsFinished()
+{
+	RaceTimeCheck();
+
+	OnRaceFinished.Broadcast();
 }

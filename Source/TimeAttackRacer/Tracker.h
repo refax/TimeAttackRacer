@@ -13,6 +13,9 @@ class TIMEATTACKRACER_API ATracker : public AActor
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FLapFinished);
 
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FRaceFinished);
+
+
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCheckPointCleared, int32, CheckPoint);
 	
 public:	
 	// Sets default values for this actor's properties
@@ -65,14 +68,16 @@ public:
 	//class AMyPlayerController *GameStateControllerReference;
 	//class AMyGameStateBase *GameState;
 	UPROPERTY(BlueprintAssignable)
-	FLapFinished LapIsFinished;
+	FLapFinished OnLapIsFinished;
 
 	UPROPERTY(BlueprintAssignable)
-	FRaceFinished RaceIsFinished;
+	FRaceFinished OnRaceIsFinished;
+
+	UPROPERTY(BlueprintAssignable)
+	FCheckPointCleared OnCheckPointClearedF;
 
 
 private:
-	void UpdateTimes();
 	void LapCheck(int32 Checkpoint);
 	void ActivateCheckpoint(class ACheckpoint *NextCheckpoint);
 	bool RaceCompleteCheck();
