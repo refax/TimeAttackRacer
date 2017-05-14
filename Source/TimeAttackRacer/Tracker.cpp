@@ -4,8 +4,6 @@
 #include "Tracker.h"
 #include "Runtime/Engine/Classes/Components/BillboardComponent.h"
 #include "Runtime/Engine/Classes/Sound/AmbientSound.h"
-#include "MyPlayerController.h"
-#include "MyGameStateBase.h"
 #include "Checkpoint.h"
 
 #include "Runtime/Engine/Classes/Engine/Engine.h"
@@ -34,25 +32,13 @@ ATracker::ATracker()
 
 	TotalCheckpoint = 0;
 
-	ControllerReference = nullptr;
+	CurrentLap = 0;
 }
 
 // Called when the game starts or when spawned
 void ATracker::BeginPlay()
 {
 	Super::BeginPlay();
-
-	//Set player controller
-	UWorld *World = GetWorld();
-	if (World)
-	{
-		ControllerReference = Cast<AMyPlayerController>(World->GetFirstPlayerController());
-		GameState = Cast<AMyGameStateBase>(World->GetGameState());
-	}
-
-	
-
-	ApplySettings();
 
 	StartSequence();
 
@@ -74,6 +60,7 @@ void ATracker::PostEditChangeProperty(FPropertyChangedEvent & PropertyChangedEve
 //private functions
 void ATracker::UpdateTimes()
 {
+	/*
 	if (GameState)
 	{
 		GameState->GoldTime = GoldTime;
@@ -82,36 +69,37 @@ void ATracker::UpdateTimes()
 		GameState->DefaultBestLapTime = DefaultBestLap;
 		GameState->DefaultBestRaceTime = DefaultBestTime;
 	}
+	*/
 }
 
 //Check if Lap is finished, if no update
 void ATracker::LapCheck(int32 Checkpoint)
 {
-	if (ControllerReference)
-	{
-		if (TotalCheckpoint == Checkpoint)
-		{
-			if (!RaceCompleteCheck())
-			{
-				
-				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("LapCompleted"));
-				ActivateCheckpoint(CheckPointsList[0]);
-				ControllerReference->UpdateLap();
-				ControllerReference->RespawnLocation = CheckPointsList[Checkpoint - 1]->GetActorTransform();
-			}
-			else
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("RaceCompleted"));
-				ControllerReference->UpdateLap();
-			}
 
+	if (TotalCheckpoint == Checkpoint)  //lap finished
+	{
+		if (!RaceCompleteCheck())
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("LapCompleted"));		
+			ActivateCheckpoint(CheckPointsList[0]);
+			//ControllerReference->RespawnLocation = CheckPointsList[Checkpoint - 1]->GetActorTransform();
+
+			LapIsFinished.Broadcast();
 		}
 		else
 		{
-			ActivateCheckpoint(CheckPointsList[Checkpoint]);
-			ControllerReference->RespawnLocation = CheckPointsList[Checkpoint - 1]->GetActorTransform();		
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("RaceCompleted"));
+			RaceIsFinished.Broadcast();
 		}
+
+		CurrentLap++;
 	}
+	else
+	{
+		ActivateCheckpoint(CheckPointsList[Checkpoint]);
+		//ControllerReference->RespawnLocation = CheckPointsList[Checkpoint - 1]->GetActorTransform();		
+	}
+
 }
 
 //This will Activate next Checkpoint
@@ -124,28 +112,9 @@ void ATracker::ActivateCheckpoint( ACheckpoint *NextCheckpoint)
 bool ATracker::RaceCompleteCheck()
 {
 
-	bool IsRaceComplete = false;
-	if (ControllerReference)
-	{
-		//ControllerReference->RaceComplete = (ControllerReference->ActualLap >= ControllerReference->MaxLaps);
-		//IsRaceComplete = ControllerReference->RaceComplete;
-	}
-
-	return IsRaceComplete;
+	return CurrentLap >= MaxLaps;
 }
 
-//Custom Events
-void ATracker::ApplySettings()
-{
-	if (GameState)
-	{
-		GameState->MaxLaps = MaxLaps;
-
-		UpdateTimes();
-
-		GameState->InitText();
-	}
-}
 
 //Start Sequence / Init all checkpoints and Activate the First Checkpoint and Bind Event TO checkPoint
 void ATracker::StartSequence()
@@ -179,15 +148,25 @@ void ATracker::StartSequence()
 //Check and see if race is over and if so, restarted
 void ATracker::OnCheckPointCleared(int32 CheckPointNumber)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("ActorEndOverlap!2"));
-	LapCheck(CheckPointNumber);
-
 	if (CheckpointSound)
 	{
 		CheckpointSound->Play();
 	}
 
-	if (ControllerReference)
+	LapCheck(CheckPointNumber);
+
+/*
+	if (GameState)
+	{
+		GameState->OnCheckPointCleared(CheckPointNumber);
+	}
+	*/
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("ActorEndOverlap!2"));
+	
+
+
+
+	//if (ControllerReference)
 	{
 		/**
 		if (ControllerReference->RaceComplete)

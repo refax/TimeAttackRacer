@@ -25,23 +25,11 @@ public:
 	//Constructor
 	AMyPlayerController();
 
-	//void SaveGameCheck();
-	//void SaveTheGame();
-	//void LoadTheGame();
-
-	void LapTimeCheck();
-	void RaceTimeCheck();
-	
-
 	//Restart Game when the race is complete
 	void Restart();
-	void UpdateLap();
+	
 	UFUNCTION()
 	void RespawnVehicle(AActor *ActorDestroyed);
-
-
-
-
 
 
 	void PlayerStartGameRequest();

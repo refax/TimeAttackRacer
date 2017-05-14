@@ -19,71 +19,6 @@ AMyPlayerController::AMyPlayerController()
 }
 
 
-/*
-void AMyPlayerController::SaveGameCheck()
-{
-	BestRaceTime = DefaultBestRaceTime;
-	BestLapTime = DefaultBestLapTime;
-}
-*/
-/*
-void AMyPlayerController::SaveTheGame()
-{
-
-}
-
-void AMyPlayerController::LoadTheGame()
-{
-
-}
-*/
-
-//Lap time check-Check if we have a new lap record
-void AMyPlayerController::LapTimeCheck()
-{
-	/*
-	StopLapTIme();
-
-	if (ActualLapTime < BestLapTime)
-	{
-		BestLapTime = ActualLapTime;
-		BestLapText = FText::FromString(UtilityFunction::TimeToText(BestLapTime));
-		SaveTheGame();
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT(""+UtilityFunction::TimeToText(BestLapTime)));
-	}
-	
-	ActualLapTime = 0.0f;
-
-	if (RaceComplete)
-	{
-		RaceTimeCheck();
-	}
-	{
-		StartLapTime();
-	}
-	*/
-}
-
-//RaceTimeCheck- Save the best race time if we have a new record
-void AMyPlayerController::RaceTimeCheck()
-{
-	/**
-	if (ActualRaceTime <= BestRaceTime)
-	{
-		BestRaceTime = ActualRaceTime;
-		BestTimeText = FText::FromString(UtilityFunction::TimeToText(BestRaceTime));
-		SaveTheGame();
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("" + UtilityFunction::TimeToText(BestRaceTime)));
-	}*/
-}
-
-/*
-void AMyPlayerController::UpdateGoals()
-{
-
-}
-*/
-
 void AMyPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -121,18 +56,7 @@ void AMyPlayerController::Restart()
 	*/
 }
 
-void AMyPlayerController::UpdateLap()
-{
-	/*
-	if (!RaceComplete)
-	{
-		ActualLap++;
-		CurrentLapText = FText::FromString(FString::FromInt(ActualLap));
-	}
-	LapTimeCheck();
-	UKismetSystemLibrary::PrintText(this, CurrentLapText);
-	*/
-}
+
 
 void AMyPlayerController::RespawnVehicle(AActor *ActorDestroyed)
 {

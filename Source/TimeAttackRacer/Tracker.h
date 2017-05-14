@@ -9,6 +9,10 @@ UCLASS()
 class TIMEATTACKRACER_API ATracker : public AActor
 {
 	GENERATED_BODY()
+
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FLapFinished);
+
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FRaceFinished);
 	
 public:	
 	// Sets default values for this actor's properties
@@ -55,8 +59,16 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Checkpoint")
 	int32 TotalCheckpoint;
 
-	class AMyPlayerController *ControllerReference;
-	class AMyGameStateBase *GameState;
+
+	int32 CurrentLap;
+
+	//class AMyPlayerController *GameStateControllerReference;
+	//class AMyGameStateBase *GameState;
+	UPROPERTY(BlueprintAssignable)
+	FLapFinished LapIsFinished;
+
+	UPROPERTY(BlueprintAssignable)
+	FRaceFinished RaceIsFinished;
 
 
 private:
@@ -73,7 +85,6 @@ private:
 	//Custom Event
 
 	//Apply User Settings When Starting the Game
-	void ApplySettings();
 	void StartSequence();
 
 };

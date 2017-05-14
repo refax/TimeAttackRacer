@@ -5,6 +5,7 @@
 #include "GameFramework/GameStateBase.h"
 #include "MyGameStateBase.generated.h"
 
+
 /**
  * 
  */
@@ -17,6 +18,7 @@ class TIMEATTACKRACER_API AMyGameStateBase : public AGameStateBase
 public:
 	AMyGameStateBase();
 
+	UFUNCTION(BlueprintCallable)
 	void InitText();
 
 
@@ -66,6 +68,10 @@ public:
 	bool RaceStart;
 
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TrackerManager")
+	class ATracker *TrackerManager;
+
+
 	UFUNCTION(BlueprintCallable)
 		void StartRaceTime();
 	UFUNCTION(BlueprintCallable)
@@ -74,6 +80,14 @@ public:
 		void StartLapTime();
 	UFUNCTION(BlueprintCallable)
 		void StopLapTIme();
+	UFUNCTION(BlueprintCallable)
+		void UpdateLap();
+
+	UFUNCTION(BlueprintCallable)
+	void LapTimeCheck();
+	UFUNCTION(BlueprintCallable)
+	void RaceTimeCheck();
+
 
 private:
 	bool RaceTimerEnabled;
