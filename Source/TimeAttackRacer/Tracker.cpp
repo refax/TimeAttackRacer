@@ -65,7 +65,7 @@ void ATracker::LapCheck(int32 Checkpoint)
 	{
 		if (!RaceCompleteCheck())
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("LapCompleted"));		
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("LapCompleted"));		
 			ActivateCheckpoint(CheckPointsList[0]);
 			//ControllerReference->RespawnLocation = CheckPointsList[Checkpoint - 1]->GetActorTransform();
 			CurrentLap++;
@@ -73,7 +73,7 @@ void ATracker::LapCheck(int32 Checkpoint)
 		}
 		else
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("RaceCompleted"));
+			//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("RaceCompleted"));
 			CurrentLap++;
 			OnRaceIsFinished.Broadcast();
 		}
@@ -138,7 +138,7 @@ void ATracker::OnCheckPointCleared(int32 CheckPointNumber)
 		CheckpointSound->Play();
 	}
 
-	OnCheckPointClearedF.Broadcast(CheckPointNumber);
+	OnCheckPointClearedF.Broadcast(CheckPointsList[CheckPointNumber-1]);
 
 	LapCheck(CheckPointNumber);
 

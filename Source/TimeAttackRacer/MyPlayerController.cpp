@@ -77,6 +77,7 @@ void AMyPlayerController::PlayerStartGameRequest()
 		PlayerHasStartedTheGame.Broadcast();
 		OnlyOnce = false;
 	}
+	
 }
 
 

@@ -74,7 +74,7 @@ void ATimeAttackRacerHud::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 	PlayerController = Cast<AMyPlayerController>(GetWorld()->GetFirstPlayerController());
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("BeginPlayHUD!"));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("BeginPlayHUD!"));
 }
 
 #undef LOCTEXT_NAMESPACE

@@ -94,7 +94,7 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FRaceFinished OnRaceFinished;
 
-
+	UFUNCTION(BlueprintCallable)
 	void RaceIsFinished();
 
 private:

@@ -18,7 +18,6 @@ AMyGameStateBase::AMyGameStateBase()
 	TrackerManager = nullptr;
 
 	ActualLap = 1;
-	MaxLaps = 3;
 
 	RaceTimerEnabled = false;
 	LapTimerEnabled = false;
@@ -46,6 +45,8 @@ void AMyGameStateBase::InitText()
 
 		TrackerManager->OnLapIsFinished.AddDynamic(this, &AMyGameStateBase::UpdateLap);
 		TrackerManager->OnRaceIsFinished.AddDynamic(this, &AMyGameStateBase::RaceIsFinished);
+
+		
 
 	}
 
@@ -130,14 +131,6 @@ void AMyGameStateBase::LapTimeCheck()
 	}
 
 	ActualLapTime = 0.0f;
-	/*
-	if (RaceComplete)
-	{
-	RaceTimeCheck();
-	}
-	{
-	
-	}*/
 
 	StartLapTime();
 	
@@ -159,6 +152,7 @@ void AMyGameStateBase::RaceTimeCheck()
 
 void AMyGameStateBase::RaceIsFinished()
 {
+	
 	RaceTimeCheck();
 
 	OnRaceFinished.Broadcast();

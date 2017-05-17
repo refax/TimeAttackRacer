@@ -36,7 +36,7 @@ public:
 	virtual void SetupInputComponent() override;
 	//virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
 
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FTransform RespawnLocation;
 	FString SaveSlot;
 

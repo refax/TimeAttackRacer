@@ -15,7 +15,7 @@ class TIMEATTACKRACER_API ATracker : public AActor
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FRaceFinished);
 
 
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCheckPointCleared, int32, CheckPoint);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FCheckPointCleared, ACheckpoint*, CheckPoint);
 	
 public:	
 	// Sets default values for this actor's properties
